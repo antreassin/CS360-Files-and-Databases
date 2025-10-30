@@ -6,6 +6,9 @@ const app = express();
 const PORT = 3000;
 const DATA_FILE = path.join(__dirname, 'data', 'tickets.json');
 
+// Simple lock for file operations
+let writeLock = Promise.resolve();
+
 // Middleware
 app.use(express.json());
 app.use(express.static('public'));
@@ -15,19 +18,33 @@ async function initializeDataFile() {
     try {
         await fs.access(DATA_FILE);
     } catch {
+        // Create data directory if it doesn't exist
+        const dataDir = path.dirname(DATA_FILE);
+        await fs.mkdir(dataDir, { recursive: true });
         await fs.writeFile(DATA_FILE, JSON.stringify({ tickets: [], nextId: 1 }));
     }
 }
 
 // Read tickets from file
 async function readTickets() {
-    const data = await fs.readFile(DATA_FILE, 'utf8');
-    return JSON.parse(data);
+    try {
+        const data = await fs.readFile(DATA_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        // If file is corrupted, reinitialize it
+        console.error('Error reading tickets file:', error.message);
+        const defaultData = { tickets: [], nextId: 1 };
+        await writeTickets(defaultData);
+        return defaultData;
+    }
 }
 
-// Write tickets to file
+// Write tickets to file with lock to prevent race conditions
 async function writeTickets(data) {
-    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    writeLock = writeLock.then(async () => {
+        await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    });
+    await writeLock;
 }
 
 // API Routes
