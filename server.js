@@ -31,10 +31,10 @@ async function readTickets() {
         const data = await fs.readFile(DATA_FILE, 'utf8');
         return JSON.parse(data);
     } catch (error) {
-        // If file is corrupted, reinitialize it
+        // If file is corrupted, reinitialize it directly
         console.error('Error reading tickets file:', error.message);
         const defaultData = { tickets: [], nextId: 1 };
-        await writeTickets(defaultData);
+        await fs.writeFile(DATA_FILE, JSON.stringify(defaultData, null, 2));
         return defaultData;
     }
 }
@@ -43,6 +43,9 @@ async function readTickets() {
 async function writeTickets(data) {
     writeLock = writeLock.then(async () => {
         await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    }).catch(error => {
+        console.error('Error writing tickets file:', error.message);
+        throw error;
     });
     await writeLock;
 }
