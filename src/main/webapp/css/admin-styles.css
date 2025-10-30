@@ -1,0 +1,130 @@
+body {
+    background-color: #f4efe2;
+    font-family: 'Courier New', Courier, monospace;
+    color: #705d3d;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #fff7e6;
+    border-bottom: 2px solid #d9c6a4;
+    margin-bottom: 30px;
+}
+
+header img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    color: #705d3d;
+}
+
+.list-group-item {
+    background-color: #fff7e6;
+    color: #705d3d;
+    border: 1px solid #d9c6a4;
+    font-weight: bold;
+}
+
+.list-group-item:hover, .list-group-item.active {
+    background-color: #705d3d;
+    color: #ffffff;
+}
+
+.form-wrapper {
+    max-width: 500px;
+    margin: 30px auto;
+    background: #fff7e6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #d9c6a4;
+}
+
+.form-wrapper h2 {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    color: #705d3d;
+    margin-bottom: 20px;
+}
+
+.form-wrapper .sect {
+    margin-bottom: 15px;
+}
+
+.form-wrapper label {
+    font-weight: bold;
+    color: #705d3d;
+}
+
+.form-wrapper input {
+    border-radius: 5px;
+    border: 1px solid #d9c6a4; /* Subtle border */
+    background-color: #fef9e7; /* Creamy input background */
+    color: #705d3d; /* Deep brown text */
+    padding: 8px;
+    width: 100%;
+}
+
+.form-wrapper input:focus {
+    border-color: #d4a66a; /* Warm highlight */
+    outline: none;
+    box-shadow: 0 0 4px rgba(212, 166, 106, 0.7); /* Subtle focus shadow */
+}
+
+#subButton, .btn-success ,#bookButton,#cancelEventButton,#cancelBookButton,#SearchButton{
+    background-color: #705d3d;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+}
+
+#subButton:hover, .btn-success:hover ,#bookButton:hover,#cancelEventButton:hover,#cancelBookButton:hover,#SearchButton:hover{
+    background-color: #423620;
+}
+
+.btn-success {
+    background-color: #705d3d;
+}
+
+#ajaxContent {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .form-wrapper {
+        padding: 15px;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}
+
+
+.custom-event-date {
+    color: #1a1919;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+}
+
+.custom-event-date:focus {
+    color: #000;
+    background-color: #fff;
+    border-color: rgba(124, 55, 27, 0.6);
+    outline: none;
+}
